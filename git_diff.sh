@@ -18,7 +18,7 @@ function git_diff_archive {
 		diff="git diff --diff-filter=d --name-only ${diff}"
 	fi
 	# ディレクトリの移動
-	cd ../$1
+	cd $1
 	git archive --format=zip --prefix=new/ $h `eval $diff` -o ../diff_zip/new.zip
 	branch_all=$(git branch --contains ${2})
 	branch=`echo $branch_all | cut --delim=" " -f 1`
