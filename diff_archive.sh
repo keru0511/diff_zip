@@ -19,7 +19,7 @@ function git_diff_archive {
 	if [ "$diff" != "" ]; then
 		diff="git diff --diff-filter=d --name-only ${diff}"
 	fi
-	git archive --format=zip --prefix=new/ $h `eval $diff` -o ../$dir/new.zip
+	git archive --format=zip --prefix=new/ $h `eval $diff` -o ../$dir_name/new.zip
 	branch_all=$(git branch --contains ${2})
 	branch=`echo $branch_all | cut --delim=" " -f 1`
 	git checkout $branch
@@ -38,13 +38,12 @@ function git_diff_archive {
 	if [ "$diff" != "" ]; then
 		diff="git diff --diff-filter=d --name-only ${diff}"
 	fi
-	git archive --format=zip --prefix=old/ $h `eval $diff` -o ../$dir/old.zip
+	git archive --format=zip --prefix=old/ $h `eval $diff` -o ../$dir_name/old.zip
 }
 # この関数でディレクトリ名を取得したい
 function get_dir_name {
 	current=$(cd $(dirname ${0});pwd)
 	dir_name=`echo "${current}" | sed -e 's/.*\/\([^\/]*\)$/\1/'`
-	echo $dir_name
 }
 # $1=案件ディレクトリ
 # $2=比較対象1
@@ -53,6 +52,5 @@ if [ $# -eq 0 ]; then
 	echo "案件の指定をしてください"
 	exit 0
 fi
-dir = get_dir_name $0
-echo $dir
-#git_diff_archive $1 $2 $3 $dir
+get_dir_name $0
+git_diff_archive $1 $2 $3 $dir_name
