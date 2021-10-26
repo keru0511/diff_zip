@@ -16,6 +16,7 @@ function git_diff_archive {
 		diff="${3} ${2}"
 		h=$2
 	fi
+	echo "$diff:diff"
 	if [ "$diff" != "" ]; then
 		diff="git diff --diff-filter=d --name-only ${diff}"
 	fi
