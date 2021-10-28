@@ -12,7 +12,7 @@ function git_diff_archive {
 	h=$3
 	file_name=$4
 	diff="git diff --diff-filter=d --name-only ${diff}"
-	if [ $(${diff}) -eq '' ]; then
+	if [ -z $(${diff})]; then
 		echo "差分がありません。"
 		exit 0
 	fi
@@ -27,7 +27,7 @@ function git_diff_archive {
 	h=$4
 	file_name=$3
 	diff="git diff --diff-filter=d --name-only ${diff}"
-	if [ $(${diff}) -eq '' ]; then
+	if [ -z $(${diff})]; then
 		echo "差分がありません。"
 		exit 0
 	fi
