@@ -3,7 +3,6 @@ function git_diff_archive {
 	echo "$2の差分出力を行います。"
 	cd $2
 	create_dir=`echo "$(pwd)" | sed -e 's/.*\/\([^\/]*\)$/\1/'`
-	echo $create_dir
 	create_dir="${create_dir}_$(date "+%Y%m%d_%H-%M-%S")"
 	mkdir $dir_name/diff_file/$create_dir
 	# 変数定義
