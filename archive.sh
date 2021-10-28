@@ -12,8 +12,11 @@ function git_diff_archive {
 	h=$3
 	file_name=$4
 	diff="git diff --diff-filter=d --name-only ${diff}"
+	if [ $(${diff}) -eq '' ]; then
+		echo "差分がありません。"
+		exit 0
+	fi
 	echo "${diff}の差分を出力しています。"
-	echo $(${diff})
 	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$file_name.zip
 	branch_all=$(git branch --contains ${3})
 	branch=$(echo $branch_all | cut --delim=" " -f 1)
@@ -24,8 +27,11 @@ function git_diff_archive {
 	h=$4
 	file_name=$3
 	diff="git diff --diff-filter=d --name-only ${diff}"
+	if [ $(${diff}) -eq '' ]; then
+		echo "差分がありません。"
+		exit 0
+	fi
 	echo "${diff}の差分を出力しています。"
-	echo $(${diff})
 	echo "git archive --format=zip --prefix=${file_name}/ ${h} $(eval ${diff}) -o ${dir_name}/diff_file/${create_dir}/${file_name}.zip"
 	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$file_name.zip
 }
