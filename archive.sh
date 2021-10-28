@@ -12,14 +12,14 @@ function git_diff_archive {
 	# ３つの場合は、後ろ２つで比較
 	if [ $# -eq 3 ]; then
 		if expr "$3" : '[0-9]*$' >/dev/null; then
-			diff="HEAD~${3} HEAD"
+			diff="HEAD..${3}"
 			file_name="HEAD"
 		else
-			diff="${3} HEAD"
+			diff="${3}..HEAD"
 			file_name=$3
 		fi
 	elif [ $# -eq 4 ]; then
-		diff="${4} ${3}"
+		diff="${4}..${3}"
 		h=$3
 		file_name=$4
 	fi
@@ -27,6 +27,7 @@ function git_diff_archive {
 		diff="git diff --diff-filter=d --name-only ${diff}"
 	fi
 	echo "${diff}の差分を出力しています。"
+	echo "git archive --format=zip --prefix=${file_name}/ ${h} `eval ${diff}` -o ${dir_name}/diff_file/${create_dir}/${file_name}.zip"
 	git archive --format=zip --prefix=$file_name/ $h `eval $diff` -o $dir_name/diff_file/$create_dir/$file_name.zip
 	branch_all=$(git branch --contains ${3})
 	branch=`echo $branch_all | cut --delim=" " -f 1`
@@ -35,14 +36,14 @@ function git_diff_archive {
 	# 入れ替えて比較
 	if [ $# -eq 3 ]; then
 		if expr "$3" : '[0-9]*$' >/dev/null; then
-			diff="HEAD HEAD~${3}"
+			diff="${3}..HEAD"
 			file_name="HEAD"
 		else
-			diff="HEAD ${3}"
+			diff="HEAD..${3}"
 			file_name=$3
 		fi
 	elif [ $# -eq 4 ]; then
-		diff="${3} ${4}"
+		diff="${3}..${4}"
 		h=$4
 		file_name=$3
 	fi
@@ -50,6 +51,7 @@ function git_diff_archive {
 		diff="git diff --diff-filter=d --name-only ${diff}"
 	fi
 	echo "${diff}の差分を出力しています。"
+	echo "git archive --format=zip --prefix=${file_name}/ ${h} `eval ${diff}` -o ${dir_name}/diff_file/${create_dir}/${file_name}.zip"
 	git archive --format=zip --prefix=$file_name/ $h `eval $diff` -o $dir_name/diff_file/$create_dir/$file_name.zip
 }
 # この関数でディレクトリ名を取得したい
