@@ -14,6 +14,7 @@ function git_diff_archive {
 	diff="git diff --diff-filter=d --name-only ${diff}"
 	if [ -z $(${diff})]; then
 		echo "差分がありません。"
+		echo "出力を中断します。"
 		exit 0
 	fi
 	echo "${diff}の差分を出力しています。"
@@ -29,6 +30,7 @@ function git_diff_archive {
 	diff="git diff --diff-filter=d --name-only ${diff}"
 	if [ -z $(${diff})]; then
 		echo "差分がありません。"
+		echo "出力を中断します。"
 		exit 0
 	fi
 	echo "${diff}の差分を出力しています。"
