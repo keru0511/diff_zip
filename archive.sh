@@ -25,6 +25,9 @@ function git_diff_archive {
 	git checkout $branch
 
 	# 入れ替えて比較
+	# 変数定義
+	local diff=""
+	local h="HEAD"
 	diff="${3}..${4}"
 	h=$4
 	file_name=$3
@@ -36,7 +39,6 @@ function git_diff_archive {
 		exit 0
 	fi
 	echo "${diff}の差分を出力しています。"
-	echo "git archive --format=zip --prefix=${file_name}/ ${h} $(eval ${diff}) -o ${dir_name}/diff_file/${create_dir}/${file_name}.zip"
 	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$file_name.zip
 }
 # この関数でディレクトリ名を取得したい
