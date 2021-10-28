@@ -12,7 +12,7 @@ function git_diff_archive {
 	h=$3
 	file_name=$4
 	diff="git diff --diff-filter=d --name-only ${diff}"
-	is_diff = $(${diff})
+	is_diff=$(${diff})
 	if [ -z $is_diff ]; then
 		echo "差分がありません。"
 		echo "出力を中断します。"
@@ -29,7 +29,7 @@ function git_diff_archive {
 	h=$4
 	file_name=$3
 	diff="git diff --diff-filter=d --name-only ${diff}"
-	is_diff = $(${diff})
+	is_diff=$(${diff})
 	if [ -z $is_diff ]; then
 		echo "差分がありません。"
 		echo "出力を中断します。"
