@@ -1,6 +1,6 @@
 function git_diff_archive {
 	# ディレクトリの移動
-	echo "$2の差分出力を行います。"
+	echo "$2に移動します。"
 	cd $2
 	create_dir=$(echo "$(pwd)" | sed -e 's/.*\/\([^\/]*\)$/\1/')
 	create_dir="${create_dir}_$(date "+%Y%m%d_%H-%M-%S")"
@@ -13,7 +13,8 @@ function git_diff_archive {
 	file_name=$4
 	diff="git diff --diff-filter=d --name-only ${diff}"
 	is_diff=$(${diff})
-	if [ -z $is_diff ]; then
+	is_diff=${#is_diff}
+	if [ $is_diff -eq 0 ]; then
 		echo "差分がありません。"
 		echo "出力を中断します。"
 		exit 0
@@ -33,7 +34,8 @@ function git_diff_archive {
 	file_name=$3
 	diff="git diff --diff-filter=d --name-only ${diff}"
 	is_diff=$(${diff})
-	if [ -z $is_diff ]; then
+	is_diff=${#is_diff}
+	if [ $is_diff -eq 0 ]; then
 		echo "差分がありません。"
 		echo "出力を中断します。"
 		exit 0
