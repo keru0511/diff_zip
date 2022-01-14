@@ -20,7 +20,7 @@ function git_diff_archive {
 		exit 0
 	fi
 	echo "${diff}の差分を出力しています。"
-	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$file_name.zip
+	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$h.zip
 	branch_all=$(git branch --contains ${3})
 	branch=$(echo $branch_all | cut --delim=" " -f 1)
 	git checkout $branch
@@ -41,7 +41,7 @@ function git_diff_archive {
 		exit 0
 	fi
 	echo "${diff}の差分を出力しています。"
-	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$file_name.zip
+	git archive --format=zip --prefix=$file_name/ $h $(eval $diff) -o $dir_name/diff_file/$create_dir/$h.zip
 }
 # この関数でディレクトリ名を取得したい
 function get_dir_name {
